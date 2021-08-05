@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: '', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: '**', redirectTo: '' },
     ],
   },
