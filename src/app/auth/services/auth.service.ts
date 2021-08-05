@@ -14,14 +14,19 @@ export class AuthService {
 
   constructor(private readonly _HTTP: HttpClient) {}
 
-  addUser(
+  /*addUser(
     email: string,
     firstName: string,
     lastName: string,
     password: string
-  ): Observable<AuthResponse> {}
+  ): Observable<AuthResponse> {}*/
 
-  login(email: string, password: string): Observable<AuthResponse> {}
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this._HTTP.post<AuthResponse>(`${this._BASE_URL}/login`, {
+      email,
+      password,
+    });
+  }
 
-  renewToken(): Observable<AuthResponse> {}
+  // renewToken(): Observable<AuthResponse> {}
 }
