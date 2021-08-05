@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,12 @@ export class RegisterComponent {
     ],
   });
 
-  constructor(private readonly _FORM_BUILDER: FormBuilder) {}
+  constructor(
+    private readonly _FORM_BUILDER: FormBuilder,
+    private readonly _ROUTER: Router
+  ) {}
 
-  register(): void {}
+  register(): void {
+    this._ROUTER.navigate(['/users/dashboard']);
+  }
 }

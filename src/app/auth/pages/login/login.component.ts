@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +21,12 @@ export class LoginComponent {
     ],
   });
 
-  constructor(private readonly _FORM_BUILDER: FormBuilder) {}
+  constructor(
+    private readonly _FORM_BUILDER: FormBuilder,
+    private readonly _ROUTER: Router
+  ) {}
 
   login(): void {
-    console.log(this.form.value);
+    this._ROUTER.navigate(['/users/dashboard']);
   }
 }
