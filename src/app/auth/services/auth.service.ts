@@ -53,14 +53,19 @@ export class AuthService {
       );
   }
 
-  renewToken(): Observable<AuthResponse> {
+  renewToken(): Observable<boolean> {
     const headers = new HttpHeaders().set(
       'AUTH',
       sessionStorage.getItem('token') || ''
     );
 
-    return this._HTTP.get<AuthResponse>(`${this._BASE_URL}/renew-token`, {
-      headers,
-    });
+    return this._HTTP
+      .get<AuthResponse>(`${this._BASE_URL}/renew-token`, {
+        headers,
+      })
+      .pipe(
+        map(({ ok }) => ok),
+        catchError((error) => of(false))
+      );
   }
 }
