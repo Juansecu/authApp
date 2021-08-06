@@ -29,7 +29,7 @@ export class AuthService {
     password: string
   ): Observable<AuthResponse> {}*/
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<boolean | object> {
     return this._HTTP
       .post<AuthResponse>(`${this._BASE_URL}/login`, {
         email,
@@ -47,7 +47,7 @@ export class AuthService {
           }
         }),
         map(({ ok }) => ok),
-        catchError((error) => of(false))
+        catchError((error) => of(error.error))
       );
   }
 
