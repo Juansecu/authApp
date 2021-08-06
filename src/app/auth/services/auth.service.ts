@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -38,6 +38,8 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response.ok) {
+            sessionStorage.setItem('token', response.token);
+
             this._user = {
               userId: response.userId!,
               email,
@@ -50,6 +52,4 @@ export class AuthService {
         catchError((error) => of(error.error))
       );
   }
-
-  // renewToken(): Observable<AuthResponse> {}
 }
