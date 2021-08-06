@@ -53,6 +53,10 @@ export class AuthService {
       );
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
   renewToken(): Observable<boolean> {
     const headers = new HttpHeaders().set(
       'AUTH',
