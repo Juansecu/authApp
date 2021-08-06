@@ -38,7 +38,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response.ok) {
-            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('token', response.token!);
 
             this._user = {
               userId: response.userId!,
@@ -64,7 +64,18 @@ export class AuthService {
         headers,
       })
       .pipe(
-        map(({ ok }) => ok),
+        map((response) => {
+          sessionStorage.setItem('token', response.token!);
+
+          this._user = {
+            userId: response.userId!,
+            email: response.email!,
+            firstName: response.firstName!,
+            lastName: response.lastName!,
+          };
+
+          return response.ok;
+        }),
         catchError((error) => of(false))
       );
   }
