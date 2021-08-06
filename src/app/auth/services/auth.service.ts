@@ -57,6 +57,39 @@ export class AuthService {
     sessionStorage.removeItem('token');
   }
 
+  register(
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string
+  ): Observable<boolean | object> {
+    return this._HTTP
+      .post<AuthResponse>(`${this._BASE_URL}/register`, {
+        email,
+        firstName,
+        lastName,
+        password,
+      })
+      .pipe(
+        tap((response) => {
+          if (response.ok) {
+            sessionStorage.setItem('token', response.token!);
+
+            this._user = {
+              userId: response.userId!,
+              email,
+              firstName,
+              lastName,
+            };
+          }
+
+          return response;
+        }),
+        map(({ ok }) => ok),
+        catchError((error) => of(error.error))
+      );
+  }
+
   renewToken(): Observable<boolean> {
     const headers = new HttpHeaders().set(
       'AUTH',
