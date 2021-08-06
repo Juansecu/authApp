@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
   renewToken(): Observable<boolean> {
